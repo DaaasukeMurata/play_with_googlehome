@@ -6,7 +6,7 @@ https://github.com/noelportugal/google-home-notifier
 
 google homeで喋らせることができる。
 
-#### Install google-home-notifier
+### Install google-home-notifier
 
 ```sh
 $ npm install google-home-notifier
@@ -14,7 +14,7 @@ $ npm install google-home-notifier
 
 
 
-#### Simple use
+### Simple use
 
 speech/simple_use.js内の、googlehome.ip('192.168.11.2', language);のIPを変更し、
 
@@ -24,7 +24,7 @@ notify res : Device notified   speech_text : こんにちは
 ```
 
 
-#### use with server
+### use with server
 
 ```sh
 mac-air:speaking$ node example.js
