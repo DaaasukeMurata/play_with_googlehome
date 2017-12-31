@@ -43,3 +43,27 @@ $ curl -X POST -d "text=Hello Google Home" https://1078ee5e.ngrok.io/google-home
 ```
 を実行することで、しゃべる。
 
+
+# IFTTT連携
+
+IFTTTとは、Webサービス同士を連携させるWebサービス。
+Google Home(Google Assistant)での認識をトリガに、lineやiOSの通知などを行うことができる。
+
+https://ifttt.com/discover
+
+
+### LINEにメッセージを送る設定の例
+
+![IFTTT img](https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_sample_1.jpg)
+
+![IFTTT img](https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_sample_2.jpg)
+
+
+### Google Homeが認識している文字列の確認
+
+スマホGoogle Homeアプリの、マイアクティビティで認識している文字を確認できる。
+"iPhoneに"が"iPhone 2"などと認識されるため、動作しない場合確認するといい。
+
+![activity img](https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/activity.png)
+
+
