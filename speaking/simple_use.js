@@ -6,7 +6,7 @@ googlehome.device('googlehome_daisuke', language); // Change to your Google Home
 // or if you know your Google Home IP
 googlehome.ip('192.168.11.2', language);
 
-var speech_text = 'こんにちは'
+var speech_text = 'こんにちは';
 
 googlehome.notify(speech_text, function (res) {
   console.log('notify_res : ' + res + '   speech_text : ' + speech_text);

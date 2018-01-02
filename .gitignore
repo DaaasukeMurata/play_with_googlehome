@@ -1,3 +1,5 @@
 *.DS_Store
 .vscode/
+.eslintrc.json
 node_modules/
+myconfig.json

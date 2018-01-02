@@ -6,14 +6,14 @@ var app = express();
 const serverPort = 8091; // default port
 
 var deviceName = 'googlehome_daisuke';
-var ip = '192.168.11.2'; // default IP      //ここにIPを記載
+var ip = '192.168.11.2'; // default IP
 
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.post('/google-home-notifier', urlencodedParser, function (req, res) {
 
-  if (!req.body) return res.sendStatus(400)
+  if (!req.body) return res.sendStatus(400);
   console.log(req.body);
 
   var text = req.body.text;
@@ -22,13 +22,13 @@ app.post('/google-home-notifier', urlencodedParser, function (req, res) {
     ip = req.query.ip;
   }
 
-  var language = 'ja'; // default language code　　　//ここに「ja」を記載
+  var language = 'ja'; // default language code
   if (req.query.language) {
     language;
   }
 
   googlehome.ip(ip, language);
-  googlehome.device(deviceName, language)　　　　　　　//ここに命令文を追加
+  googlehome.device(deviceName, language);
 
   if (text) {
     try {
@@ -52,7 +52,7 @@ app.post('/google-home-notifier', urlencodedParser, function (req, res) {
   } else {
     res.send('Please GET "text=Hello Google Home"');
   }
-})
+});
 
 app.get('/google-home-notifier', function (req, res) {
 
@@ -64,13 +64,13 @@ app.get('/google-home-notifier', function (req, res) {
     ip = req.query.ip;
   }
 
-  var language = 'ja'; // default language code　　　　　//ここに「ja」を記載
+  var language = 'ja'; // default language code
   if (req.query.language) {
     language;
   }
 
   googlehome.ip(ip, language);
-  googlehome.device(deviceName, language)　　　　　　　　//ここに命令文を追加
+  googlehome.device(deviceName, language);
 
   if (text) {
     try {
@@ -94,7 +94,7 @@ app.get('/google-home-notifier', function (req, res) {
   } else {
     res.send('Please GET "text=Hello+Google+Home"');
   }
-})
+});
 
 app.listen(serverPort, function () {
   ngrok.connect(serverPort, function (err, url) {
@@ -106,4 +106,4 @@ app.listen(serverPort, function () {
     console.log('POST example:');
     console.log('curl -X POST -d "text=Hello Google Home" ' + url + '/google-home-notifier');
   });
-})
+});

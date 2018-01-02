@@ -1,0 +1,6 @@
+{
+    "server_port": "8080",
+    "server_ip": "localhost",
+    "googlehome_ip": "192.168.XX.XX",  // Google Home's IP
+    "googlehome_name": "device name of google home"
+}
