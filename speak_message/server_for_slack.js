@@ -33,13 +33,10 @@ http.createServer(function (request, response) {
     var data_text = querystring.parse(post_data).text;
 
     console.log("data_text : " + data_text);
-    googlehome_speak("だいくんからメッセージ。" + data_text);
+    googlehome_speak(config.beginning_sentence + data_text);
 
     response.writeHead(200, { 'Content-Type': 'application/json' });
-    // response.write('{ "text": "aa", "username": "vv" }');
-
-    // response.writeHead(200, { "Content-Type": "text/plain" });
-    // response.write("POST DATA is " + data_text);
+    // response.write('{ "text": "aaa", "username": "bbb" }');
     response.end();
   });
 }).listen(config.server_port);

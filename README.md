@@ -1,11 +1,15 @@
 <!-- TOC -->
 
-- [Slackerへの投稿をGoogleHomeでしゃべらせる](#slackerへの投稿をgooglehomeでしゃべらせる)
+- [Lineへの投稿をGoogleHomeでしゃべらせる](#lineへの投稿をgooglehomeでしゃべらせる)
     - [ngrok](#ngrok)
         - [Installing ngrok on OSX](#installing-ngrok-on-osx)
-        - [user ngrok](#user-ngrok)
+        - [use ngrok](#use-ngrok)
+    - [Line](#line)
     - [Slacker Channnelへのoutgoint web hook登録](#slacker-channnelへのoutgoint-web-hook登録)
     - [httpサーバ](#httpサーバ)
+- [Slackへの投稿をGoogleHomeでしゃべらせる](#slackへの投稿をgooglehomeでしゃべらせる)
+    - [Slacker Channnelへのoutgoint web hook登録](#slacker-channnelへのoutgoint-web-hook登録-1)
+    - [httpサーバ](#httpサーバ-1)
 - [google-home-notifier](#google-home-notifier)
     - [Install google-home-notifier](#install-google-home-notifier)
     - [simple use](#simple-use)
@@ -16,13 +20,13 @@
 
 <!-- /TOC -->
 
-# Slackerへの投稿をGoogleHomeでしゃべらせる
+# Lineへの投稿をGoogleHomeでしゃべらせる
 
-- Slackerには、Outgoing Webhooksという、投稿時に指定URLにPOSTする機能がある
+- Lineには、Webhookという、特定アカウントにメッセージを受信したら、指定URLにPOSTする機能がある
 
-- 自宅サーバに、httpサーバを立てておき、POSTされたらgoogle-home-notifierを使用して発話
+- 自宅サーバにhttpサーバを起動しておき、POSTされたらgoogle-home-notifierを使用して発話
 
-- ルータを再起動すると、GlobalIPが変わってしまうので、ngrokを使用
+- ルータを再起動すると、Global IPが変わってしまうので、ngrokを使用
 https://qiita.com/kitaro729/items/44214f9f81d3ebda58bd
 
 ## ngrok
@@ -41,7 +45,7 @@ cd /usr/local/bin
 ln -s /Applications/ngrok ngrok
 ```
 
-### user ngrok
+### use ngrok
 
 ```sh
 # create symlink
@@ -58,6 +62,14 @@ Forwarding                    http://3a166b22.ngrok.io -> localhost:8080
 Forwarding                    https://3a166b22.ngrok.io -> localhost:8080                                                            
 ```
 
+## Line 
+
+https://techblog.recochoku.jp/1835
+
+発信先のURLは、ngrokで生成したアドレスにする。
+
+
+
 ## Slacker Channnelへのoutgoint web hook登録
 
 http://blog.nakajix.jp/entry/2016/02/12/090000
@@ -66,7 +78,27 @@ http://blog.nakajix.jp/entry/2016/02/12/090000
 
 ## httpサーバ
 
-speak_message/server.js参照
+speak_message/server_for_line.js参照
+
+
+
+# Slackへの投稿をGoogleHomeでしゃべらせる
+
+- Slackerには、Outgoing Webhooksという、投稿時に指定URLにPOSTする機能がある
+
+- あとはLineと一緒
+
+
+## Slacker Channnelへのoutgoint web hook登録
+
+http://blog.nakajix.jp/entry/2016/02/12/090000
+
+発信先のURLは、ngrokで生成したアドレスにする。
+
+
+## httpサーバ
+
+speak_message/server_for_slacker.js参照
 
 
 
@@ -111,7 +143,7 @@ curl -X POST -d "text=Hello Google Home" https://1078ee5e.ngrok.io/google-home-n
 ```sh
 $ curl -X POST -d "text=Hello Google Home" https://1078ee5e.ngrok.io/google-home-notifier
 ```
-を実行することで、しゃべる。
+を実行することで、`text`の文字列をしゃべる。
 
 
 # IFTTT連携
