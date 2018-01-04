@@ -1,13 +1,13 @@
-// var config = require('./config/default.json');
-var config = require('./config/myconfig.json');
+// const config = require('./config/default.json');
+const config = require('./config/myconfig.json');
 
 // for http server
-var http = require("http");
-var querystring = require("querystring");
+const http = require("http");
+const querystring = require("querystring");
 
 // for googlehome
-var googlehome = require('google-home-notifier');
-var language = 'ja'; // if not set 'us' language will be used
+const googlehome = require('google-home-notifier');
+const language = 'ja'; // if not set 'us' language will be used
 
 function googlehome_init() {
   googlehome.device(config.googlehome_name, language);
@@ -24,13 +24,13 @@ function googlehome_speak(text) {
 googlehome_init();
 
 http.createServer(function (request, response) {
-  var post_data = "";
+  let post_data = "";
 
   request.on("data", function (chunk) {
     post_data += chunk;
   });
   request.on("end", function () {
-    var data_text = querystring.parse(post_data).text;
+    const data_text = querystring.parse(post_data).text;
 
     console.log("data_text : " + data_text);
     googlehome_speak(config.beginning_sentence + data_text);

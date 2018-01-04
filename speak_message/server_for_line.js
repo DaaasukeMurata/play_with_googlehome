@@ -1,12 +1,12 @@
-// var config = require('./config/default.json');
-var config = require('./config/myconfig.json');
+// const config = require('./config/default.json');
+const config = require('./config/myconfig.json');
 
 // for http server
-var http = require('http');
+const http = require('http');
 
 // for googlehome
-var googlehome = require('google-home-notifier');
-var language = 'ja';
+const googlehome = require('google-home-notifier');
+const language = 'ja';
 
 function googlehome_init() {
   googlehome.device(config.googlehome_name, language);
@@ -23,7 +23,7 @@ function googlehome_speak(text) {
 googlehome_init();
 
 http.createServer(function (request, response) {
-  var post_data = '';
+  let post_data = '';
 
   request.on('data', function (chunk) {
     post_data += chunk;
@@ -32,14 +32,14 @@ http.createServer(function (request, response) {
   request.on('end', function () {
     console.log('post_data : ' + post_data);
 
-    var webhook = JSON.parse(post_data).events[0];
+    const webhook = JSON.parse(post_data).events[0];
     if (webhook.type != 'message' || webhook.message.type != 'text') {
       return;
     }
 
     // 特定の人からのメッセージのみ発話
     if (config.speakable_userid == '' || webhook.source.userId == config.speakable_userid) {
-      var data_text = webhook.message.text;
+      const data_text = webhook.message.text;
       // console.log('data_text : ' + data_text);
       googlehome_speak(config.beginning_sentence + data_text);
     }
