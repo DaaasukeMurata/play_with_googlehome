@@ -4,11 +4,10 @@
     - [ngrok](#ngrok)
         - [Installing ngrok on OSX](#installing-ngrok-on-osx)
         - [use ngrok](#use-ngrok)
-    - [Line](#line)
-    - [Slacker Channnelへのoutgoint web hook登録](#slacker-channnelへのoutgoint-web-hook登録)
+    - [Line Webhook登録](#line-webhook登録)
     - [httpサーバ](#httpサーバ)
 - [Slackへの投稿をGoogleHomeでしゃべらせる](#slackへの投稿をgooglehomeでしゃべらせる)
-    - [Slacker Channnelへのoutgoint web hook登録](#slacker-channnelへのoutgoint-web-hook登録-1)
+    - [Slack ChannnelへのOutgoint Webhooks登録](#slack-channnelへのoutgoint-webhooks登録)
     - [httpサーバ](#httpサーバ-1)
 - [google-home-notifier](#google-home-notifier)
     - [Install google-home-notifier](#install-google-home-notifier)
@@ -62,19 +61,12 @@ Forwarding                    http://3a166b22.ngrok.io -> localhost:8080
 Forwarding                    https://3a166b22.ngrok.io -> localhost:8080                                                            
 ```
 
-## Line 
+## Line Webhook登録
 
 https://techblog.recochoku.jp/1835
 
 発信先のURLは、ngrokで生成したアドレスにする。
 
-
-
-## Slacker Channnelへのoutgoint web hook登録
-
-http://blog.nakajix.jp/entry/2016/02/12/090000
-
-発信先のURLは、ngrokで生成したアドレスにする。
 
 ## httpサーバ
 
@@ -84,12 +76,12 @@ speak_message/server_for_line.js参照
 
 # Slackへの投稿をGoogleHomeでしゃべらせる
 
-- Slackerには、Outgoing Webhooksという、投稿時に指定URLにPOSTする機能がある
+- Slackには、Outgoing Webhooksという、投稿時に指定URLにPOSTする機能がある
 
 - あとはLineと一緒
 
 
-## Slacker Channnelへのoutgoint web hook登録
+## Slack ChannnelへのOutgoint Webhooks登録
 
 http://blog.nakajix.jp/entry/2016/02/12/090000
 
@@ -98,7 +90,7 @@ http://blog.nakajix.jp/entry/2016/02/12/090000
 
 ## httpサーバ
 
-speak_message/server_for_slacker.js参照
+speak_message/server_for_slack.js参照
 
 
 
