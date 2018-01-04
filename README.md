@@ -22,7 +22,7 @@
 
 # Lineへの投稿をGoogleHomeでしゃべらせる
 
-- Lineには、Webhookという、特定アカウントにメッセージを受信したら、指定URLにPOSTする機能がある
+- Lineには、Webhookという、特定アカウントにメッセージ受信（など）した時に、指定URLにPOSTする機能がある
 
 - 自宅サーバにhttpサーバを起動しておき、POSTされたらgoogle-home-notifierを使用して発話
 
