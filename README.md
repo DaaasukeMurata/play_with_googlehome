@@ -148,9 +148,9 @@ https://ifttt.com/discover
 
 ## LINEにメッセージを送る設定の例
 
-![IFTTT img](https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_sample_1.jpg)
+<img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_sample_1.jpg" width="700px">
 
-![IFTTT img](https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_sample_2.jpg)
+<img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_sample_2.jpg" width="700px">
 
 
 ## Google Homeが認識している文字列の確認
@@ -158,6 +158,5 @@ https://ifttt.com/discover
 スマホGoogle Homeアプリの、マイアクティビティで認識している文字を確認できる。
 "iPhoneに"が"iPhone 2"などと認識されるため、動作しない場合確認するといい。
 
-![activity img](https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/activity.png)
-
+<img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/activity.png" width="300px">
 
