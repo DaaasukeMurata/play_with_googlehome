@@ -5,6 +5,14 @@
     "googlehome_ip": "192.168.XX.XX",
     "googlehome_name": "device name of google home",
 
-    "beginning_sentence": "メッセージが届きました。",
-    "speakable_userid": ""
+    "speakable_users":[
+        {
+            "id":"Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "beginning_sentence":"user1からメッセージ。"
+        },
+        {
+            "id":"Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "beginning_sentence":"user2からメッセージ。"
+        }
+    ]
 }

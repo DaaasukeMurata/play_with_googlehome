@@ -37,11 +37,21 @@ http.createServer(function (request, response) {
       return;
     }
 
-    // 特定の人からのメッセージのみ発話
-    if (config.speakable_userid == '' || webhook.source.userId == config.speakable_userid) {
-      const data_text = webhook.message.text;
-      // console.log('data_text : ' + data_text);
-      googlehome_speak(config.beginning_sentence + data_text);
+    const data_text = webhook.message.text;
+
+    // speakable_usersがいない場合は、誰でも発話
+    if (config.speakable_users == '') {
+      googlehome_speak(data_text);
+    }
+    else {
+      // 特定の人からのメッセージのみ発話
+      let speakable_user = config.speakable_users.filter(function (item, index) {
+        if (item.id == webhook.source.userId) return true;
+      });
+
+      if (typeof speakable_user[0] !== "undefined") {
+        googlehome_speak(speakable_user[0].beginning_sentence + data_text);
+      }
     }
 
     response.writeHead(200, { 'Content-Type': 'text/plain' });
