@@ -8,6 +8,8 @@
     - [reference](#reference)
     - [summery](#summery)
     - [Google Spreadsheetへのアクセス](#google-spreadsheet%E3%81%B8%E3%81%AE%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9)
+    - [Google Apps Script](#google-apps-script)
+      - [GASでPOSTを受け取る](#gas%E3%81%A7post%E3%82%92%E5%8F%97%E3%81%91%E5%8F%96%E3%82%8B)
 - [Slackへの投稿をGoogleHomeでしゃべらせる](#slack%E3%81%B8%E3%81%AE%E6%8A%95%E7%A8%BF%E3%82%92googlehome%E3%81%A7%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9B%E3%82%8B)
   - [Slack ChannnelへのOutgoint Webhooks登録](#slack-channnel%E3%81%B8%E3%81%AEoutgoint-webhooks%E7%99%BB%E9%8C%B2)
   - [httpサーバ](#http%E3%82%B5%E3%83%BC%E3%83%90)
@@ -25,16 +27,17 @@
 
 - 自宅サーバにhttpサーバを起動しておき、POSTされたらgoogle-home-notifierを使用して発話
 
-- ルータを再起動すると、Global IPが変わってしまうので、ngrokを使用
-
+- ルータを再起動すると、Global IPが変わってしまうので、ngrokを使用  
+[ref] ngrokを使用してローカル環境を外部に公開する  
 <https://qiita.com/kitaro729/items/44214f9f81d3ebda58bd>
 
 ## ngrok
 
 ### Installing ngrok on OSX
 
-<https://ngrok.com>
+- <https://ngrok.com>
 
+- [ref] Installing ngrok on Mac  
 <https://gist.github.com/wosephjeber/aa174fb851dfe87e644e>
 
 ```sh
@@ -64,9 +67,10 @@ Forwarding                    https://3a166b22.ngrok.io -> localhost:8080
 
 ## Line Webhook登録
 
+- [ref] LINE Messaging APIを試してみた  
 <https://techblog.recochoku.jp/1835>
 
-発信先のURLは、ngrokで生成したアドレスにする。
+- 発信先のURLは、ngrokで生成したアドレスにする。
 
 ## httpサーバ
 
@@ -76,7 +80,8 @@ speak_message/server_for_line.js参照
 
 ### reference
 
-- <https://qiita.com/k_keisuke/items/3e67aa25a24f07656f47>
+- [ref] google-home-notifier周りをほぼ自動化した  
+<https://qiita.com/k_keisuke/items/3e67aa25a24f07656f47>
 
 ### summery
 
@@ -86,19 +91,36 @@ speak_message/server_for_line.js参照
 
 ### Google Spreadsheetへのアクセス
 
+- [ref] Google APIを使う際に、APIを有効化して認証キーを取得する方法  
 <https://www.yoheim.net/blog.php?q=20160411>
 
-1. [Google Developer Console](https://console.developers.google.com/)で、Google Spread SheetのAPIを有効にして認証用のjsonファイルを取得
-2. 新規Google Spread Sheet作成。URLからアクセス先を確認
+1. [Google Developer Console](https://console.developers.google.com/)で、Google Spread SheetのAPIを有効にして認証用のjsonファイルを取得
+
+2. 新規Google Spread Sheet作成。URLからアクセス先を確認
+
 3. JavaScriptのgoogle-spreadsheetを使用して更新
 
 
 ```sh
 $ npm install npm i google-spreadsheet
 ```
-  
+
+### Google Apps Script
+
+- [ref] Google Apps Script 入門  
+<https://qiita.com/t_imagawa/items/47fc130a419b9be0b447>
 
 
+#### GASでPOSTを受け取る
+
+- [ref] Slack上のメッセージをGoogleAppsScriptで受け取ってよしなに使う  
+<https://qiita.com/kyo_nanba/items/83b646357d592eb9a87b>
+
+- [ref] Google Apps ScriptのdoPostでJSONなパラメータのPOSTリクエストを受ける  
+<https://qiita.com/shirakiya/items/db22de49f00710478cfc>
+
+- [ref] doPost()をデバッグしたい  
+<https://okawa.routecompass.net/gas-log/>
 
 
 
@@ -111,9 +133,10 @@ $ npm install npm i google-spreadsheet
 
 ## Slack ChannnelへのOutgoint Webhooks登録
 
+- [ref] Outgoing WebHookを使ってSlackのメッセージを監視する  
 <http://blog.nakajix.jp/entry/2016/02/12/090000>
 
-発信先のURLは、ngrokで生成したアドレスにする。
+- 発信先のURLは、ngrokで生成したアドレスにする。
 
 ## httpサーバ
 
@@ -121,8 +144,10 @@ speak_message/server_for_slack.js参照
 
 # google-home-notifier
 
+- [ref] GoogleHomeスピーカーに外部からプッシュして自発的に話してもらいます  
 <https://qiita.com/azipinsyan/items/db4606aaa51426ac8dac>
 
+- GitHub : google-home-notifier  
 <https://github.com/noelportugal/google-home-notifier>
 
 google homeで喋らせることができる。
