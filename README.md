@@ -1,23 +1,23 @@
-<!-- TOC -->
-
-- [Lineへの投稿をGoogleHomeでしゃべらせる](#lineへの投稿をgooglehomeでしゃべらせる)
-    - [ngrok](#ngrok)
-        - [Installing ngrok on OSX](#installing-ngrok-on-osx)
-        - [use ngrok](#use-ngrok)
-    - [Line Webhook登録](#line-webhook登録)
-    - [httpサーバ](#httpサーバ)
-- [Slackへの投稿をGoogleHomeでしゃべらせる](#slackへの投稿をgooglehomeでしゃべらせる)
-    - [Slack ChannnelへのOutgoint Webhooks登録](#slack-channnelへのoutgoint-webhooks登録)
-    - [httpサーバ](#httpサーバ-1)
+- [Lineへの投稿をGoogleHomeでしゃべらせる](#line%E3%81%B8%E3%81%AE%E6%8A%95%E7%A8%BF%E3%82%92googlehome%E3%81%A7%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9B%E3%82%8B)
+  - [ngrok](#ngrok)
+    - [Installing ngrok on OSX](#installing-ngrok-on-osx)
+    - [use ngrok](#use-ngrok)
+  - [Line Webhook登録](#line-webhook%E7%99%BB%E9%8C%B2)
+  - [httpサーバ](#http%E3%82%B5%E3%83%BC%E3%83%90)
+  - [サーバ起動時のLine Developersへのngrok URLの登録を、自動化](#%E3%82%B5%E3%83%BC%E3%83%90%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%AEline-developers%E3%81%B8%E3%81%AEngrok-url%E3%81%AE%E7%99%BB%E9%8C%B2%E3%82%92%E8%87%AA%E5%8B%95%E5%8C%96)
+    - [reference](#reference)
+    - [summery](#summery)
+    - [Google Spreadsheetへのアクセス](#google-spreadsheet%E3%81%B8%E3%81%AE%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9)
+- [Slackへの投稿をGoogleHomeでしゃべらせる](#slack%E3%81%B8%E3%81%AE%E6%8A%95%E7%A8%BF%E3%82%92googlehome%E3%81%A7%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9B%E3%82%8B)
+  - [Slack ChannnelへのOutgoint Webhooks登録](#slack-channnel%E3%81%B8%E3%81%AEoutgoint-webhooks%E7%99%BB%E9%8C%B2)
+  - [httpサーバ](#http%E3%82%B5%E3%83%BC%E3%83%90)
 - [google-home-notifier](#google-home-notifier)
-    - [Install google-home-notifier](#install-google-home-notifier)
-    - [simple use](#simple-use)
-    - [use with server](#use-with-server)
-- [IFTTT連携](#ifttt連携)
-    - [LINEにメッセージを送る設定の例](#lineにメッセージを送る設定の例)
-    - [Google Homeが認識している文字列の確認](#google-homeが認識している文字列の確認)
-
-<!-- /TOC -->
+  - [Install google-home-notifier](#install-google-home-notifier)
+  - [simple use](#simple-use)
+  - [use with server](#use-with-server)
+- [IFTTT連携](#ifttt%E9%80%A3%E6%90%BA)
+  - [LINEにメッセージを送る設定の例](#line%E3%81%AB%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E9%80%81%E3%82%8B%E8%A8%AD%E5%AE%9A%E3%81%AE%E4%BE%8B)
+  - [Google Homeが認識している文字列の確認](#google-home%E3%81%8C%E8%AA%8D%E8%AD%98%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E7%A2%BA%E8%AA%8D)
 
 # Lineへの投稿をGoogleHomeでしゃべらせる
 
@@ -26,15 +26,16 @@
 - 自宅サーバにhttpサーバを起動しておき、POSTされたらgoogle-home-notifierを使用して発話
 
 - ルータを再起動すると、Global IPが変わってしまうので、ngrokを使用
-https://qiita.com/kitaro729/items/44214f9f81d3ebda58bd
+
+<https://qiita.com/kitaro729/items/44214f9f81d3ebda58bd>
 
 ## ngrok
 
 ### Installing ngrok on OSX
 
-https://ngrok.com
+<https://ngrok.com>
 
-https://gist.github.com/wosephjeber/aa174fb851dfe87e644e
+<https://gist.github.com/wosephjeber/aa174fb851dfe87e644e>
 
 ```sh
 # cd into your local bin directory
@@ -52,25 +53,53 @@ ngrok http 8080
 
 # 下記の様な画面が表示される。これでhttp://3a166b22.ngrok.ioにアクセスすれば、localhost:8080へのアクセスとなる
 ngrok by @inconshreveable                                                                                            (Ctrl+C to quit)
-                                                                                                                                     
-Session Status                online                                                                                                 
-Version                       2.2.8                                                                                                  
-Region                        United States (us)                                                                                     
-Web Interface                 http://127.0.0.1:4040                                                                                  
-Forwarding                    http://3a166b22.ngrok.io -> localhost:8080                                                             
-Forwarding                    https://3a166b22.ngrok.io -> localhost:8080                                                            
+
+Session Status                online
+Version                       2.2.8
+Region                        United States (us)
+Web Interface                 http://127.0.0.1:4040
+Forwarding                    http://3a166b22.ngrok.io -> localhost:8080
+Forwarding                    https://3a166b22.ngrok.io -> localhost:8080
 ```
 
 ## Line Webhook登録
 
-https://techblog.recochoku.jp/1835
+<https://techblog.recochoku.jp/1835>
 
 発信先のURLは、ngrokで生成したアドレスにする。
-
 
 ## httpサーバ
 
 speak_message/server_for_line.js参照
+
+## サーバ起動時のLine Developersへのngrok URLの登録を、自動化
+
+### reference
+
+- <https://qiita.com/k_keisuke/items/3e67aa25a24f07656f47>
+
+### summery
+
+- サーバ起動時にngrokで生成したURLを、Google spreadsheetに記載
+
+- Line Webhook -> Google Apps ScriptでGoogle spreadsheetからURL読み込み、転送
+
+### Google Spreadsheetへのアクセス
+
+<https://www.yoheim.net/blog.php?q=20160411>
+
+1. [Google Developer Console](https://console.developers.google.com/)で、Google Spread SheetのAPIを有効にして認証用のjsonファイルを取得
+2. 新規Google Spread Sheet作成。URLからアクセス先を確認
+3. JavaScriptのgoogle-spreadsheetを使用して更新
+
+
+```sh
+$ npm install npm i google-spreadsheet
+```
+  
+
+
+
 
 
 
@@ -80,25 +109,21 @@ speak_message/server_for_line.js参照
 
 - あとはLineと一緒
 
-
 ## Slack ChannnelへのOutgoint Webhooks登録
 
-http://blog.nakajix.jp/entry/2016/02/12/090000
+<http://blog.nakajix.jp/entry/2016/02/12/090000>
 
 発信先のURLは、ngrokで生成したアドレスにする。
-
 
 ## httpサーバ
 
 speak_message/server_for_slack.js参照
 
-
-
 # google-home-notifier
 
-https://qiita.com/azipinsyan/items/db4606aaa51426ac8dac
+<https://qiita.com/azipinsyan/items/db4606aaa51426ac8dac>
 
-https://github.com/noelportugal/google-home-notifier
+<https://github.com/noelportugal/google-home-notifier>
 
 google homeで喋らせることができる。
 
@@ -117,7 +142,6 @@ mac-air:speaking$ node simple_use.js
 notify res : Device notified   speech_text : こんにちは
 ```
 
-
 ## use with server
 
 ```sh
@@ -132,19 +156,19 @@ curl -X POST -d "text=Hello Google Home" https://1078ee5e.ngrok.io/google-home-n
 ```
 
 最後にある
+
 ```sh
 $ curl -X POST -d "text=Hello Google Home" https://1078ee5e.ngrok.io/google-home-notifier
 ```
-を実行することで、`text`の文字列をしゃべる。
 
+を実行することで、`text`の文字列をしゃべる。
 
 # IFTTT連携
 
 IFTTTとは、Webサービス同士を連携させるWebサービス。
 Google Home(Google Assistant)での認識をトリガに、lineやiOSの通知などを行うことができる。
 
-https://ifttt.com/discover
-
+<https://ifttt.com/discover>
 
 ## LINEにメッセージを送る設定の例
 
@@ -152,11 +176,9 @@ https://ifttt.com/discover
 
 <img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_sample_2.jpg" width="700px">
 
-
 ## Google Homeが認識している文字列の確認
 
 スマホGoogle Homeアプリの、マイアクティビティで認識している文字を確認できる。
 "iPhoneに"が"iPhone 2"などと認識されるため、動作しない場合確認するといい。
 
 <img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/activity.png" width="300px">
-
