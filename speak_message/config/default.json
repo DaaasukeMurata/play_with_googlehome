@@ -14,5 +14,10 @@
             "id":"Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             "beginning_sentence":"user2からメッセージ。"
         }
-    ]
+    ],
+
+    "googlesheet_key": "xxxxxxxxxxxxx(google spread sheet id)",
+    "googlesheet_cert_file": "xxxxxxxxxxxx(google dev project cert file)",
+
+    "ngrok_authtoken": "xxxxxx(ngrok access token)"
 }

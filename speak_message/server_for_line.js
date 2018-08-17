@@ -39,7 +39,7 @@ googlesheet_ngrok.useServiceAccountAuth(googlesheet_cert, function (err) {
 });
 
 // run ngrok, and update URL in spread sheet
-ngrok.connect(config.server_port, function (err, url) {
+ngrok.connect({authtoken: config.ngrok_authtoken, addr: config.server_port}, function (err, url) {
   console.log('Endpoints:');
   console.log('  ' + url);
 
