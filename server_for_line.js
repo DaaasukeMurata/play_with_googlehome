@@ -31,9 +31,11 @@ class NgrokURLSheet {
       }
 
       self.spreadsheet.getInfo(function (err, data) {
-        if (err !== null) {
-          console.log('getInfo() : ' + err);
-        }
+        // if (err !== null) {
+        //   console.log('getInfo() : ' + err);
+        // }
+        console.log('getInfo() : ' + err);
+
         self.sheet = data.worksheets[0];
       });
     });
@@ -126,7 +128,9 @@ http.createServer(function (request, response) {
   });
 
   request.on('end', function () {
-    console.log('post_data : ' + post_data);
+    console.log('');
+    console.log('post_data : ');
+    console.log(post_data);
 
     let lineWebhook = new LineWebhook(post_data);
     if (!lineWebhook.isValid) {
