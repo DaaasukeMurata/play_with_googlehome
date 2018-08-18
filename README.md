@@ -102,7 +102,7 @@ speak_message/server_for_line.js参照
 
 
 ```sh
-$ npm install npm i google-spreadsheet
+$ npm install google-spreadsheet
 ```
 
 ### Google Apps Script
