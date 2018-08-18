@@ -20,6 +20,8 @@ class NgrokURLSheet {
   constructor(sheet_key, cert_file_path) {
     let self = this;
 
+    this.initialized = false;
+    this.url_info = '';
     this.googlesheet = require('google-spreadsheet');
     this.spreadsheet = new this.googlesheet(sheet_key);
 
@@ -31,18 +33,23 @@ class NgrokURLSheet {
       }
 
       self.spreadsheet.getInfo(function (err, data) {
-        // if (err !== null) {
-        //   console.log('getInfo() : ' + err);
-        // }
-        console.log('getInfo() : ' + err);
+        if (err !== null) {
+          console.log('getInfo() : ' + err);
+        }
 
         self.sheet = data.worksheets[0];
+        // in case of runnning callback after setting url
+        self.initialized = true;
+        self.url = self.url_info;
       });
     });
   }
 
   set url(url) {
-    this._setValue(0, url);
+    this.url_info = url;
+    if (this.initialized && this.url_info != '') {
+      this._setValue(0, url);
+    }
   }
 
   // write val to spreadsheet.
@@ -107,7 +114,7 @@ const http = require('http');
 // for ngrok
 const ngrok = require('ngrok');
 
-// main()
+// --- main()
 let googlehome = new GoogleHomeOp(config.googlehome_name, config.googlehome_ip);
 let ngrokURLSheet = new NgrokURLSheet(config.googlesheet_key, config.googlesheet_cert_file);
 
