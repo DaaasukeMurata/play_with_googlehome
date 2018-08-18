@@ -10,44 +10,46 @@ class GoogleHomeOp {
 
   speak(text) {
     this.googlehome.notify(text, function (res) {
-      console.log('googlehome_res : ' + res + '   speech_text : ' + text);
+      console.log('speak googlehome:');
+      console.log('  res = ' + res);
+      console.log('  text = ' + text);
     });
   }
 }
 
 // write ngrok URL to Google Spread Sheet
 class NgrokURLSheet {
-  constructor(sheet_key, cert_file_path) {
+  constructor(sheetKey, certFilePath) {
     let self = this;
 
     this.initialized = false;
-    this.url_info = '';
+    this.urlInfo = '';
     this.googlesheet = require('google-spreadsheet');
-    this.spreadsheet = new this.googlesheet(sheet_key);
+    this.spreadsheet = new this.googlesheet(sheetKey);
 
     // get sheet object of 'google-home-notifiler_ngrok_url' spread sheet
-    const cert_file = require(cert_file_path);
-    this.spreadsheet.useServiceAccountAuth(cert_file, function (err) {
+    const credentials = require(certFilePath);
+    this.spreadsheet.useServiceAccountAuth(credentials, function (err) {
       if (err !== undefined) {
-        console.log('useServiceAccountAuth() : ' + err);
+        console.log('[ERR] useServiceAccountAuth() : ' + err);
       }
 
       self.spreadsheet.getInfo(function (err, data) {
         if (err !== null) {
-          console.log('getInfo() : ' + err);
+          console.log('[ERR] getInfo() : ' + err);
         }
 
         self.sheet = data.worksheets[0];
         // in case of runnning callback after setting url
         self.initialized = true;
-        self.url = self.url_info;
+        self.url = self.urlInfo;
       });
     });
   }
 
   set url(url) {
-    this.url_info = url;
-    if (this.initialized && this.url_info != '') {
+    this.urlInfo = url;
+    if (this.initialized && this.urlInfo != '') {
       this._setValue(0, url);
     }
   }
@@ -62,7 +64,7 @@ class NgrokURLSheet {
     }, function (err, cells) {
 
       if (err !== null) {
-        console.log('getCells() : ' + err);
+        console.log('[ERR] getCells() : ' + err);
       }
 
       let cell = cells[index];
@@ -74,13 +76,13 @@ class NgrokURLSheet {
 }
 
 class LineWebhook {
-  constructor(post_data) {
+  constructor(postData) {
     this.isValid;
     this.webhook;
 
     // parse JSON
     try {
-      this.webhook = JSON.parse(post_data).events[0];
+      this.webhook = JSON.parse(postData).events[0];
     } catch (e) {
       console.log('post_data is not JSON format.', e.message);
       this.isValid = false;
@@ -100,7 +102,7 @@ class LineWebhook {
     return this.webhook.message.text;
   }
 
-  get user_id() {
+  get userId() {
     return this.webhook.source.userId;
   }
 }
@@ -128,18 +130,18 @@ ngrok.connect({ authtoken: config.ngrok_authtoken, addr: config.server_port }, f
 
 // listen localhost's port
 http.createServer(function (request, response) {
-  let post_data = '';
+  let postdata = '';
 
   request.on('data', function (chunk) {
-    post_data += chunk;
+    postdata += chunk;
   });
 
   request.on('end', function () {
     console.log('');
     console.log('post_data : ');
-    console.log(post_data);
+    console.log(postdata);
 
-    let lineWebhook = new LineWebhook(post_data);
+    let lineWebhook = new LineWebhook(postdata);
     if (!lineWebhook.isValid) {
       return;
     }
@@ -151,7 +153,7 @@ http.createServer(function (request, response) {
     else {
       // speak only message from specific person
       for (let user of config.speakable_users) {
-        if (user.id == lineWebhook.user_id) {
+        if (user.id == lineWebhook.userId) {
           googlehome.speak(user.beginning_sentence + lineWebhook.msg);
           break;
         }
