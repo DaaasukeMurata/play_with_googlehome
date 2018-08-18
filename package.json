@@ -1,0 +1,23 @@
+{
+  "name": "play_w_googlehome",
+  "version": "1.0.0",
+  "description": "- [Lineへの投稿をGoogleHomeでしゃべらせる](#line%E3%81%B8%E3%81%AE%E6%8A%95%E7%A8%BF%E3%82%92googlehome%E3%81%A7%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9B%E3%82%8B)   - [ngrok](#ngrok)     - [Installing ngrok on OSX](#installing-ngrok-on-osx)     - [use ngrok](#use-ngrok)   - [Line Webhook登録](#line-webhook%E7%99%BB%E9%8C%B2)   - [httpサーバ](#http%E3%82%B5%E3%83%BC%E3%83%90)   - [サーバ起動時のLine Developersへのngrok URLの登録を、自動化](#%E3%82%B5%E3%83%BC%E3%83%90%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%AEline-developers%E3%81%B8%E3%81%AEngrok-url%E3%81%AE%E7%99%BB%E9%8C%B2%E3%82%92%E8%87%AA%E5%8B%95%E5%8C%96)     - [reference](#reference)     - [summery](#summery)     - [Google Spreadsheetへのアクセス](#google-spreadsheet%E3%81%B8%E3%81%AE%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9)     - [Google Apps Script](#google-apps-script)       - [GASでPOSTを受け取る](#gas%E3%81%A7post%E3%82%92%E5%8F%97%E3%81%91%E5%8F%96%E3%82%8B) - [Slackへの投稿をGoogleHomeでしゃべらせる](#slack%E3%81%B8%E3%81%AE%E6%8A%95%E7%A8%BF%E3%82%92googlehome%E3%81%A7%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9B%E3%82%8B)   - [Slack ChannnelへのOutgoint Webhooks登録](#slack-channnel%E3%81%B8%E3%81%AEoutgoint-webhooks%E7%99%BB%E9%8C%B2)   - [httpサーバ](#http%E3%82%B5%E3%83%BC%E3%83%90) - [google-home-notifier](#google-home-notifier)   - [Install google-home-notifier](#install-google-home-notifier)   - [simple use](#simple-use)   - [use with server](#use-with-server) - [IFTTT連携](#ifttt%E9%80%A3%E6%90%BA)   - [LINEにメッセージを送る設定の例](#line%E3%81%AB%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E9%80%81%E3%82%8B%E8%A8%AD%E5%AE%9A%E3%81%AE%E4%BE%8B)   - [Google Homeが認識している文字列の確認](#google-home%E3%81%8C%E8%AA%8D%E8%AD%98%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E7%A2%BA%E8%AA%8D)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaaasukeMurata/play_w_googlehome.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DaaasukeMurata/play_w_googlehome/issues"
+  },
+  "homepage": "https://github.com/DaaasukeMurata/play_w_googlehome#readme",
+  "dependencies": {
+    "google-home-notifier": "^1.2.0",
+    "google-spreadsheet": "^2.0.5"
+  }
+}
