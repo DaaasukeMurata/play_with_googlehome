@@ -105,6 +105,9 @@ speak_message/server_for_line.js参照
 $ npm install google-spreadsheet
 ```
 
+[howto] Simple Google Spreadsheet Access (node.js)  
+<https://www.npmjs.com/package/google-spreadsheet>
+
 ### Google Apps Script
 
 - [ref] Google Apps Script 入門  
