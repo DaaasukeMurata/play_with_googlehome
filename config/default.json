@@ -1,11 +1,14 @@
 {
-    "server_port": "8080",
-    "server_ip": "localhost",
+    "SERVER_IP": "localhost",
+    "SERVER_PORT": "8080",
+    "GOOGLEHOME_IP": "192.168.XX.XX",
+    "GOOGLEHOME_NAME": "device name of google home",
 
-    "googlehome_ip": "192.168.XX.XX",
-    "googlehome_name": "device name of google home",
+    "NGROK_AUTH_TOKEN": "xxxxxx(ngrok access token)",
+    "GOOGLESHEET_ID": "xxxxxxxxxxxxx(google spread sheet id)",
+    "GOOGLESHEET_CERT_FILE": "xxxxxxxxxxxx(google dev project cert file)",
 
-    "speakable_users":[
+    "LINE_SPEAKABLE_USERS": [
         {
             "id":"Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             "beginning_sentence":"user1からメッセージ。"
@@ -16,8 +19,5 @@
         }
     ],
 
-    "googlesheet_key": "xxxxxxxxxxxxx(google spread sheet id)",
-    "googlesheet_cert_file": "xxxxxxxxxxxx(google dev project cert file)",
-
-    "ngrok_authtoken": "xxxxxx(ngrok access token)"
+    "YOUTUBE_API_KEY": "xxxxxxxxxxxx(youtube api key)"
 }
