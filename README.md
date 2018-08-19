@@ -1,4 +1,4 @@
-- [LineへのメッセージをGoogleHomeでしゃべらせる](#line%E3%81%B8%E3%81%AE%08%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92googlehome%E3%81%A7%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9B%E3%82%8B)
+- [LineへのメッセージをGoogleHomeでしゃべらせる](#line%E3%81%B8%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92googlehome%E3%81%A7%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9B%E3%82%8B)
   - [ngrok](#ngrok)
     - [Installing ngrok on OSX](#installing-ngrok-on-osx)
     - [use ngrok](#use-ngrok)
@@ -22,7 +22,7 @@
   - [LINEにメッセージを送る設定の例](#line%E3%81%AB%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E9%80%81%E3%82%8B%E8%A8%AD%E5%AE%9A%E3%81%AE%E4%BE%8B)
   - [Google Homeが認識している文字列の確認](#google-home%E3%81%8C%E8%AA%8D%E8%AD%98%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E7%A2%BA%E8%AA%8D)
 
-# LineへのメッセージをGoogleHomeでしゃべらせる
+# LineへのメッセージをGoogleHomeでしゃべらせる
 
 - Lineには、Webhookという、特定アカウントにメッセージ受信（など）した時に、指定URLにPOSTする機能がある
 
@@ -137,7 +137,7 @@ $ npm install google-spreadsheet
 
 - GoogleHome(Google Assistant) -> IFTTT -> Google Apps Script -> home server -> GoogleHome
 
-- Google Apps Scriptで、SpreadSheetに記載されたngrokのIPへPOST
+- Google Apps Scriptで、SpreadSheetに記載されたngrokのIPへPOST
 
 - Youtubeの検索は、JavaScriptのパッケージ`youtube-node`を使用
 
