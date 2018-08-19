@@ -1,3 +1,5 @@
+'use strict';
+
 // operate GoogleHome
 class GoogleHomeOp {
   constructor(name, ip) {
@@ -10,9 +12,16 @@ class GoogleHomeOp {
 
   speak(text) {
     this.googlehome.notify(text, function (res) {
-      console.log('speak googlehome:');
+      console.log('GoogleHome speak:');
       console.log('  res = ' + res);
       console.log('  text = ' + text);
+    });
+  }
+
+  play(url) {
+    this.googlehome.play(url, function (res) {
+      console.log('GoogleHome play:');
+      console.log('  res = ' + res);
     });
   }
 }
@@ -82,30 +91,74 @@ class LineWebhook {
 
     // parse JSON
     try {
-      this.webhook = JSON.parse(postData).events[0];
+      // this.webhook = JSON.parse(postData).events[0];
+      this.webhook = JSON.parse(postData);
     } catch (e) {
       console.log('post_data is not JSON format.', e.message);
       this.isValid = false;
       return;
     }
 
-    // check that webhook is message
-    if (this.webhook.type != 'message' || this.webhook.message.type != 'text') {
+    // check that webhook is line message
+    if (!('events' in this.webhook)) {
+      console.log('This is not line message, because webhook.events[0] === undefined.');
+      this.isValid = false;
+      return;
+    }
+    if (this.webhook.events[0].type != 'message' || this.webhook.events[0].message.type != 'text') {
+      console.log('This is not line message, because webhook.events[0].type is not message or text.');
       this.isValid = false;
       return;
     }
 
+    console.log('This is line message.');
     this.isValid = true;
   }
 
   get msg() {
-    return this.webhook.message.text;
+    return this.webhook.events[0].message.text;
   }
 
   get userId() {
-    return this.webhook.source.userId;
+    return this.webhook.events[0].source.userId;
   }
 }
+
+
+
+class YoutubeWebhook {
+  constructor(postData) {
+    this.isValid;
+    this.webhook;
+
+    // parse JSON
+    try {
+      // this.webhook = JSON.parse(postData).events[0];
+      this.webhook = JSON.parse(postData);
+    } catch (e) {
+      console.log('post_data is not JSON format.', e.message);
+      this.isValid = false;
+      return;
+    }
+
+    // check that webhook is line message
+    if (!('type' in this.webhook) || this.webhook.type != 'googlehome_play_youtube') {
+      console.log('This is not Youtube request, because webhook.type is not googlehome_play_youtube');
+      this.isValid = false;
+      return;
+    }
+
+    console.log('This is Youtube request.');
+    this.isValid = true;
+  }
+
+  get contents() {
+    return this.webhook.contents;
+  }
+}
+
+
+const exec = require('child_process').exec;
 
 // const config = require('./config/default.json');
 const config = require('./config/myconfig.json');
@@ -115,6 +168,11 @@ const http = require('http');
 
 // for ngrok
 const ngrok = require('ngrok');
+
+// for youtube
+const Youtube = require('youtube-node');
+const youtube = new Youtube();
+youtube.setKey(config.youtube_api_key);
 
 // --- main()
 let googlehome = new GoogleHomeOp(config.googlehome_name, config.googlehome_ip);
@@ -142,22 +200,55 @@ http.createServer(function (request, response) {
     console.log(postdata);
 
     let lineWebhook = new LineWebhook(postdata);
-    if (!lineWebhook.isValid) {
-      return;
-    }
+    let youtubeWebhook = new YoutubeWebhook(postdata);
 
-    // If 'config.speakable_users' is undefined, GoogleHome speaks anyone's message.
-    if (config.speakable_users == '') {
-      googlehome.speak(lineWebhook.msg);
-    }
-    else {
-      // speak only message from specific person
-      for (let user of config.speakable_users) {
-        if (user.id == lineWebhook.userId) {
-          googlehome.speak(user.beginning_sentence + lineWebhook.msg);
-          break;
+    if (lineWebhook.isValid) {
+      // If 'config.speakable_users' is undefined, GoogleHome speaks anyone's message.
+      if (config.speakable_users == '') {
+        googlehome.speak(lineWebhook.msg);
+      }
+      else {
+        // speak only message from specific person
+        for (let user of config.speakable_users) {
+          if (user.id == lineWebhook.userId) {
+            googlehome.speak(user.beginning_sentence + lineWebhook.msg);
+            break;
+          }
         }
       }
+    } else if (youtubeWebhook.isValid) {
+      let keyword = youtubeWebhook.contents;
+      const YOUTUBE_CATEGOLY_MUSIC = 10;
+
+      youtube.search(keyword, 1, { 'type': 'video', 'videoCategoryId': YOUTUBE_CATEGOLY_MUSIC }, function (err, result) {
+        if (err) {
+          console.log(err);
+        }
+
+        console.log('Youtube search result:');
+        console.log(JSON.stringify(result, null, 2));
+        for (const item of result.items) {
+          if (item.id.videoId) {
+            googlehome.speak(item.snippet.title);
+
+            let youtubeUrl = 'https://www.youtube.com/watch?v=' + item.id.videoId;
+            exec('youtube-dl --get-url --extract-audio ' + youtubeUrl, function (err, stdout, stderr) {
+              if (err !== null) {
+                console.log('exec error: ' + err);
+              }
+
+              const soundUrl = stdout;
+              console.log('Youtube Audio URL:');
+              console.log(soundUrl);
+
+              googlehome.play(soundUrl, function (res) {
+                console.log('GoogleHome res: ' + res);
+              });
+            });
+            break;
+          }
+        }
+      });
     }
 
     response.writeHead(200, { 'Content-Type': 'text/plain' });

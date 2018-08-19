@@ -5,3 +5,4 @@ node_modules/
 myconfig.json
 testconfig.json
 google-home_with_ngrok-*.json
+/samples/youtube/local_config.json

@@ -10,6 +10,9 @@
     - [Google Spreadsheetへのアクセス](#google-spreadsheet%E3%81%B8%E3%81%AE%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9)
     - [Google Apps Script](#google-apps-script)
       - [GASでPOSTを受け取る](#gas%E3%81%A7post%E3%82%92%E5%8F%97%E3%81%91%E5%8F%96%E3%82%8B)
+- [Youtube Music再生](#youtube-music%E5%86%8D%E7%94%9F)
+  - [youtube-node](#youtube-node)
+  - [youtubeのdownload](#youtube%E3%81%AEdownload)
 - [Slackへの投稿をGoogleHomeでしゃべらせる](#slack%E3%81%B8%E3%81%AE%E6%8A%95%E7%A8%BF%E3%82%92googlehome%E3%81%A7%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9B%E3%82%8B)
   - [Slack ChannnelへのOutgoint Webhooks登録](#slack-channnel%E3%81%B8%E3%81%AEoutgoint-webhooks%E7%99%BB%E9%8C%B2)
   - [httpサーバ](#http%E3%82%B5%E3%83%BC%E3%83%90)
@@ -126,6 +129,58 @@ $ npm install google-spreadsheet
 <https://okawa.routecompass.net/gas-log/>
 
 
+
+
+# Youtube Music再生
+
+## youtube-node
+
+**install**
+
+[ref] youtube-node  
+<https://www.npmjs.com/package/youtube-node>
+
+```sh
+npm install youtube-node
+```
+
+**youtube api key**
+
+- [ref] 承認の認証情報を取得する  
+<https://developers.google.com/youtube/registering_an_application?hl=ja>
+
+- [ref] YouTube API APIキーの取得方法  
+<https://qiita.com/chieeeeno/items/ba0d2fb0a45db786746f>
+
+## youtubeのdownload
+
+`youtube-dl`を使用。
+
+<http://rg3.github.io/youtube-dl/index.html>
+
+
+
+- [ref] youtube-dlでYouTube動画をダウンロードする方法  
+  <https://qiita.com/fantm21/items/8be5c1c5f1b9043269a2>
+
+**install**
+
+```sh
+# [ref] http://rg3.github.io/youtube-dl/download.html
+brew install youtube-dl
+```
+
+**JavaScriptからの実行**
+
+```js
+const  exec = require('child_process').exec;
+
+exec('youtube-dl --get-url --extract-audio https://www.youtube.com/watch?v=XXXXXX', function (err, stdout, stderr) {
+if (err !== null) {
+   console.log(err);
+}
+const soundUrl = stdout;
+```
 
 
 # Slackへの投稿をGoogleHomeでしゃべらせる
