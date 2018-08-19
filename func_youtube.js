@@ -3,10 +3,10 @@
 const exec = require('child_process').exec;
 // const config = require('./config/default.json');
 const config = require('./config/myconfig.json');
-const FuncBase = require('./func_base');
+const BaseWithGoogleHome = require('./func_base');
 const youtube_node = require('youtube-node');
 
-module.exports = class YoutubeWithGoogleHome extends FuncBase {
+module.exports = class YoutubeWithGoogleHome extends BaseWithGoogleHome {
   constructor(googlehome, postData) {
     super(googlehome, postData);
     // If failed common check in baseclass, this.isValid is false. 
@@ -21,11 +21,11 @@ module.exports = class YoutubeWithGoogleHome extends FuncBase {
       return;
     }
 
-    this.youtubeNode = new youtube_node();
-    this.youtubeNode.setKey(config.YOUTUBE_API_KEY);
-
     console.log('This is for Youtube with GoogleHome!');
     this.isValid = true;
+
+    this.youtubeNode = new youtube_node();
+    this.youtubeNode.setKey(config.YOUTUBE_API_KEY);
   }
 
   run() {
@@ -33,6 +33,7 @@ module.exports = class YoutubeWithGoogleHome extends FuncBase {
     let keyword = this.webhook.contents;
     const YOUTUBE_CATEGOLY_MUSIC = 10;
 
+    // 1 is search number
     this.youtubeNode.search(keyword, 1, { 'type': 'video', 'videoCategoryId': YOUTUBE_CATEGOLY_MUSIC }, function (err, result) {
       if (err) {
         console.log(err);
@@ -42,10 +43,11 @@ module.exports = class YoutubeWithGoogleHome extends FuncBase {
       console.log(JSON.stringify(result, null, 2));
       for (const item of result.items) {
         if (item.id.videoId) {
+          // speak Youtube title
           self.googlehome.speak(item.snippet.title);
 
           let youtubeUrl = 'https://www.youtube.com/watch?v=' + item.id.videoId;
-          exec('youtube-dl --get-url --extract-audio ' + youtubeUrl, function (err, stdout, stderr) {
+          exec('youtube-dl --get-url --extract-audio ' + youtubeUrl, function (err, stdout) {
             if (err !== null) {
               console.log('exec error: ' + err);
             }
@@ -54,9 +56,9 @@ module.exports = class YoutubeWithGoogleHome extends FuncBase {
             console.log('Youtube Audio URL:');
             console.log(soundUrl);
 
-            self.googlehome.play(soundUrl, function (res) {
-              console.log('GoogleHome res: ' + res);
-            });
+            let delay = item.snippet.title.length * 150;
+            console.log('delay = ' + delay);
+            self.googlehome.play(soundUrl, delay);
           });
           break;
         }

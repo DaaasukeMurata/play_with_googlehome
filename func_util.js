@@ -1,8 +1,5 @@
 'use strict';
 
-// const config = require('./config/default.json');
-const config = require('./config/myconfig.json');
-
 // operate GoogleHome
 class GoogleHomeOp {
   constructor(name, ip) {
@@ -13,6 +10,7 @@ class GoogleHomeOp {
     this.googlehome.ip(ip, this.LANG);
   }
 
+  // speak text
   speak(text) {
     this.googlehome.notify(text, function (res) {
       console.log('GoogleHome speak:');
@@ -21,11 +19,15 @@ class GoogleHomeOp {
     });
   }
 
-  play(url) {
-    this.googlehome.play(url, function (res) {
-      console.log('GoogleHome play:');
-      console.log('  res = ' + res);
-    });
+  // play music
+  play(url, delay = 0) {
+    let self = this;
+    setTimeout(function () {
+      self.googlehome.play(url, function (res) {
+        console.log('GoogleHome play:');
+        console.log('  res = ' + res);
+      });
+    }, delay);
   }
 }
 
@@ -90,4 +92,4 @@ class NgrokURLSheet {
 module.exports = {
   GoogleHomeOp,
   NgrokURLSheet
-}
+};

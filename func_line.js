@@ -2,9 +2,9 @@
 
 // const config = require('./config/default.json');
 const config = require('./config/myconfig.json');
-const FuncBase = require('./func_base');
+const BaseWithGoogleHome = require('./func_base');
 
-module.exports = class LineWithGoogleHome extends FuncBase {
+module.exports = class LineWithGoogleHome extends BaseWithGoogleHome {
   constructor(googlehome, postData) {
     super(googlehome, postData);
     // If failed common check in baseclass, this.isValid is false. 

@@ -1,7 +1,7 @@
 'use strict';
 
 // abstract class
-module.exports = class FuncBase {
+module.exports = class BaseWithGoogleHome {
   constructor(googlehome, postData) {
     this.isValid;
     this.webhook;
