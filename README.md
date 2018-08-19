@@ -1,21 +1,19 @@
-- [Lineへの投稿をGoogleHomeでしゃべらせる](#line%E3%81%B8%E3%81%AE%E6%8A%95%E7%A8%BF%E3%82%92googlehome%E3%81%A7%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9B%E3%82%8B)
+- [LineへのメッセージをGoogleHomeでしゃべらせる](#line%E3%81%B8%E3%81%AE%08%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92googlehome%E3%81%A7%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9B%E3%82%8B)
   - [ngrok](#ngrok)
     - [Installing ngrok on OSX](#installing-ngrok-on-osx)
     - [use ngrok](#use-ngrok)
   - [Line Webhook登録](#line-webhook%E7%99%BB%E9%8C%B2)
   - [httpサーバ](#http%E3%82%B5%E3%83%BC%E3%83%90)
-  - [サーバ起動時のLine Developersへのngrok URLの登録を、自動化](#%E3%82%B5%E3%83%BC%E3%83%90%E8%B5%B7%E5%8B%95%E6%99%82%E3%81%AEline-developers%E3%81%B8%E3%81%AEngrok-url%E3%81%AE%E7%99%BB%E9%8C%B2%E3%82%92%E8%87%AA%E5%8B%95%E5%8C%96)
-    - [reference](#reference)
-    - [summery](#summery)
-    - [Google Spreadsheetへのアクセス](#google-spreadsheet%E3%81%B8%E3%81%AE%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9)
-    - [Google Apps Script](#google-apps-script)
-      - [GASでPOSTを受け取る](#gas%E3%81%A7post%E3%82%92%E5%8F%97%E3%81%91%E5%8F%96%E3%82%8B)
-- [Youtube Music再生](#youtube-music%E5%86%8D%E7%94%9F)
+- [ngrokでのhome server IP設定を自動化](#ngrok%E3%81%A7%E3%81%AEhome-server-ip%E8%A8%AD%E5%AE%9A%E3%82%92%E8%87%AA%E5%8B%95%E5%8C%96)
+  - [outline](#outline)
+  - [Google SpreadsheetへJavaScriptからアクセス](#google-spreadsheet%E3%81%B8javascript%E3%81%8B%E3%82%89%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9)
+  - [Google Apps Script](#google-apps-script)
+    - [Google Apps ScriptでPOSTを受け取る](#google-apps-script%E3%81%A7post%E3%82%92%E5%8F%97%E3%81%91%E5%8F%96%E3%82%8B)
+- [GoogleHomeで、Youtube Music再生](#googlehome%E3%81%A7youtube-music%E5%86%8D%E7%94%9F)
+  - [outline](#outline)
+  - [IFTTT設定](#ifttt%E8%A8%AD%E5%AE%9A)
   - [youtube-node](#youtube-node)
   - [youtubeのdownload](#youtube%E3%81%AEdownload)
-- [Slackへの投稿をGoogleHomeでしゃべらせる](#slack%E3%81%B8%E3%81%AE%E6%8A%95%E7%A8%BF%E3%82%92googlehome%E3%81%A7%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9B%E3%82%8B)
-  - [Slack ChannnelへのOutgoint Webhooks登録](#slack-channnel%E3%81%B8%E3%81%AEoutgoint-webhooks%E7%99%BB%E9%8C%B2)
-  - [httpサーバ](#http%E3%82%B5%E3%83%BC%E3%83%90)
 - [google-home-notifier](#google-home-notifier)
   - [Install google-home-notifier](#install-google-home-notifier)
   - [simple use](#simple-use)
@@ -24,7 +22,7 @@
   - [LINEにメッセージを送る設定の例](#line%E3%81%AB%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E9%80%81%E3%82%8B%E8%A8%AD%E5%AE%9A%E3%81%AE%E4%BE%8B)
   - [Google Homeが認識している文字列の確認](#google-home%E3%81%8C%E8%AA%8D%E8%AD%98%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E7%A2%BA%E8%AA%8D)
 
-# Lineへの投稿をGoogleHomeでしゃべらせる
+# LineへのメッセージをGoogleHomeでしゃべらせる
 
 - Lineには、Webhookという、特定アカウントにメッセージ受信（など）した時に、指定URLにPOSTする機能がある
 
@@ -77,22 +75,21 @@ Forwarding                    https://3a166b22.ngrok.io -> localhost:8080
 
 ## httpサーバ
 
-speak_message/server_for_line.js参照
+index.js参照
 
-## サーバ起動時のLine Developersへのngrok URLの登録を、自動化
 
-### reference
+# ngrokでのhome server IP設定を自動化 
 
-- [ref] google-home-notifier周りをほぼ自動化した  
+[ref] google-home-notifier周りをほぼ自動化した  
 <https://qiita.com/k_keisuke/items/3e67aa25a24f07656f47>
 
-### summery
+## outline
 
 - サーバ起動時にngrokで生成したURLを、Google spreadsheetに記載
 
 - Line Webhook -> Google Apps ScriptでGoogle spreadsheetからURL読み込み、転送
 
-### Google Spreadsheetへのアクセス
+## Google SpreadsheetへJavaScriptからアクセス
 
 - [ref] Google APIを使う際に、APIを有効化して認証キーを取得する方法  
 <https://www.yoheim.net/blog.php?q=20160411>
@@ -111,13 +108,13 @@ $ npm install google-spreadsheet
 [howto] Simple Google Spreadsheet Access (node.js)  
 <https://www.npmjs.com/package/google-spreadsheet>
 
-### Google Apps Script
+## Google Apps Script
 
 - [ref] Google Apps Script 入門  
 <https://qiita.com/t_imagawa/items/47fc130a419b9be0b447>
 
 
-#### GASでPOSTを受け取る
+### Google Apps ScriptでPOSTを受け取る
 
 - [ref] Slack上のメッセージをGoogleAppsScriptで受け取ってよしなに使う  
 <https://qiita.com/kyo_nanba/items/83b646357d592eb9a87b>
@@ -131,7 +128,31 @@ $ npm install google-spreadsheet
 
 
 
-# Youtube Music再生
+# GoogleHomeで、Youtube Music再生
+
+[ref] Google Home自身でYoutubeの音楽を再生する  
+<https://qiita.com/odetarou/items/0e134ff845826d16170c>
+
+## outline
+
+- GoogleHome(Google Assistant) -> IFTTT -> Google Apps Script -> home server -> GoogleHome
+
+- Google Apps Scriptで、SpreadSheetに記載されたngrokのIPへPOST
+
+- Youtubeの検索は、JavaScriptのパッケージ`youtube-node`を使用
+
+- YoutubeからのDLは、`youtube-dl`を使用。optionで音楽データへの変換も可能。
+
+- GoogleHomeでの再生は、`google-home-notifiler`を使用
+
+## IFTTT設定
+
+<img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_youtube_01.jpg" width="400px">
+
+<img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_youtube_02.jpg" width="400px">
+
+<img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_youtube_03.jpg" width="400px">
+
 
 ## youtube-node
 
@@ -151,6 +172,7 @@ npm install youtube-node
 
 - [ref] YouTube API APIキーの取得方法  
 <https://qiita.com/chieeeeno/items/ba0d2fb0a45db786746f>
+
 
 ## youtubeのdownload
 
@@ -182,23 +204,6 @@ if (err !== null) {
 const soundUrl = stdout;
 ```
 
-
-# Slackへの投稿をGoogleHomeでしゃべらせる
-
-- Slackには、Outgoing Webhooksという、投稿時に指定URLにPOSTする機能がある
-
-- あとはLineと一緒
-
-## Slack ChannnelへのOutgoint Webhooks登録
-
-- [ref] Outgoing WebHookを使ってSlackのメッセージを監視する  
-<http://blog.nakajix.jp/entry/2016/02/12/090000>
-
-- 発信先のURLは、ngrokで生成したアドレスにする。
-
-## httpサーバ
-
-speak_message/server_for_slack.js参照
 
 # google-home-notifier
 
@@ -255,9 +260,8 @@ Google Home(Google Assistant)での認識をトリガに、lineやiOSの通知�
 
 ## LINEにメッセージを送る設定の例
 
-<img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_sample_1.jpg" width="700px">
-
-<img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_sample_2.jpg" width="700px">
+<img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_sample_1.jpg" width="400px">
+<img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/ifttt_sample_2.jpg" width="400px">
 
 ## Google Homeが認識している文字列の確認
 
