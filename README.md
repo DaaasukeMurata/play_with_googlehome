@@ -10,7 +10,7 @@
   - [Google Apps Script](#google-apps-script)
     - [Google Apps ScriptでPOSTを受け取る](#google-apps-script%E3%81%A7post%E3%82%92%E5%8F%97%E3%81%91%E5%8F%96%E3%82%8B)
 - [GoogleHomeで、Youtube Music再生](#googlehome%E3%81%A7youtube-music%E5%86%8D%E7%94%9F)
-  - [outline](#outline)
+  - [outline](#outline-1)
   - [IFTTT設定](#ifttt%E8%A8%AD%E5%AE%9A)
   - [youtube-node](#youtube-node)
   - [youtubeのdownload](#youtube%E3%81%AEdownload)
@@ -21,6 +21,7 @@
 - [IFTTT連携](#ifttt%E9%80%A3%E6%90%BA)
   - [LINEにメッセージを送る設定の例](#line%E3%81%AB%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92%E9%80%81%E3%82%8B%E8%A8%AD%E5%AE%9A%E3%81%AE%E4%BE%8B)
   - [Google Homeが認識している文字列の確認](#google-home%E3%81%8C%E8%AA%8D%E8%AD%98%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E6%96%87%E5%AD%97%E5%88%97%E3%81%AE%E7%A2%BA%E8%AA%8D)
+- [VoiceTextによる発話](#voicetext%E3%81%AB%E3%82%88%E3%82%8B%E7%99%BA%E8%A9%B1)
 
 # LineへのメッセージをGoogleHomeでしゃべらせる
 
@@ -269,3 +270,20 @@ Google Home(Google Assistant)での認識をトリガに、lineやiOSの通知�
 "iPhoneに"が"iPhone 2"などと認識されるため、動作しない場合確認するといい。
 
 <img src="https://github.com/DaaasukeMurata/play_w_googlehome/raw/images/activity.png" width="300px">
+
+
+# VoiceTextによる発話
+
+ref : https://qiita.com/nori-dev-akg/items/bad7eb0c41617110cfa4
+
+- google-home-notifier自体を変更して、textのURL取得箇所を変更
+
+- VoiceText(https://cloud.voicetext.jp/webapi/)を使ってwavを取得
+
+- google-homeはURLでしか音声ファイルを渡せないため、音声ファイルを公開するサーバを起動（api.js）
+
+```
+forever -w start api.js
+node index.js
+```
+
