@@ -1,7 +1,9 @@
 *.DS_Store
 .vscode/
 .eslintrc.json
-node_modules/
+node_modules/*
+!node_modules/google-home-notifier
+node_modules/google-home-notifier/node_modules
 myconfig.json
 testconfig.json
 google-home_with_ngrok-*.json
