@@ -1,3 +1,12 @@
+# 紹介は、Qiitaに投稿しました。
+
+https://qiita.com/daaaaaasuke/items/5e95983166667094f42f
+
+![google-home](https://user-images.githubusercontent.com/20267972/208101658-ddd11810-25b3-4b00-b939-cab67e26bffd.jpg)
+
+
+# その他のメモ目次：
+
 - [LineへのメッセージをGoogleHomeでしゃべらせる](#line%E3%81%B8%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%82%92googlehome%E3%81%A7%E3%81%97%E3%82%83%E3%81%B9%E3%82%89%E3%81%9B%E3%82%8B)
   - [ngrok](#ngrok)
     - [Installing ngrok on OSX](#installing-ngrok-on-osx)
